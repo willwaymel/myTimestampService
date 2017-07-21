@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var strftime = require('strftime');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -57,8 +57,11 @@ app.use(function(err, req, res, next) {
 });
 //returns unix stamp or null if there is a NaN error
 function getUnixStamp(input) {
-  var d = new Date(input).getTime();
-  return (isNaN(d) ? null : d);
+  if (new Date(parseInt(input)))////INSERT NEW CODE HERE to fix
+  var d = new Date(parseInt(input));
+  var x = d.getTime();
+  console.log(x + "is x");
+  return (isNaN(d) ? null : x);
 }
 
 
