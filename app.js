@@ -22,6 +22,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get("/:id", function(req, res) {
+  var qs = req.params.id;
+  var responseobj = {'unix':0,'natural':""};
+  var unixTime = getUnixStamp(qs);
+  if (unixTime === null) {
+    responseobj.unix = null;
+    responseobj.natural = null;
+  } else {
+    responseobj.unix = unixTime;
+    responseobj.natural = strftime('%B %d, %Y', new Date(unixTime));
+  }
+    res.end(JSON.stringify(responseobj));
+  });
 app.use('/', index);
 app.use('/users', users);
 
@@ -48,19 +61,7 @@ function getUnixStamp(input) {
   return (isNaN(d) ? null : d);
 }
 
-app.get("/:id", function(request, response) {
-  var qs = req.params.id;
-  var responseobj = {'unix':0,'natural':""};
-  var unixTime = getUnixStamp(qs);
-  if (unixTime === null) {
-    responseobj.unix = null;
-    responseobj.natural = null;
-  } else {
-    responseobj.unix = unixTime;
-    responseobj.natural = strftime('%B %d, %Y', new Date(unixTime));
-  }
-    res.end(JSON.stringify(responseobj));
-  });
+
 
 
 module.exports = app;
