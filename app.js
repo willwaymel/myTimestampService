@@ -48,7 +48,7 @@ function getUnixStamp(input) {
   return (isNaN(d) ? null : d);
 }
 
-app.put("/:id", function(request, response) {
+app.get("/:id", function(request, response) {
   var qs = req.params.id;
   var responseobj = {'unix':0,'natural':""};
   var unixTime = getUnixStamp(qs);
