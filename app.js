@@ -57,13 +57,19 @@ app.use(function(err, req, res, next) {
 });
 //returns unix stamp or null if there is a NaN error
 function getUnixStamp(input) {
-  if (new Date(parseInt(input)))////INSERT NEW CODE HERE to fix
-  var d = new Date(parseInt(input));
-  var x = d.getTime();
-  console.log(x + "is x");
-  return (isNaN(d) ? null : x);
-}
+  // console.log("hello " + parseInt(input).toString().length + " " + input + " " + input.length + " " + typeof parseInt(input));
+  var d;
+  if (parseInt(input).toString().length == input.length) {
+    //it's a number
+  d = new Date(parseInt(input)).getTime();
+    console.log(d + " im here");
+  return d;
+  } else {
+  d = new Date(input).getTime();
+  return (isNaN(d) ? null : d);  
+  }
 
+}
 
 
 
